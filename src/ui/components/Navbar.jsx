@@ -1,12 +1,18 @@
+import { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../auth/context/AuthContext';
 
 export const Navbar = () => {
+
+    const {authState, logout} = useContext(AuthContext)
 
     const navigate = useNavigate()
 
     const onLogout = () => {
         // console.log('logout')
         // replace: true // Evita que la persona pueda regresar al historial anterior... (porque en teoria se esta reemplazando)
+        
+        logout()
         navigate('/login',{
             replace: true
         })
@@ -51,7 +57,7 @@ export const Navbar = () => {
                 <ul className="navbar-nav ml-auto">
                     <span
                         className='nav-item nav-link text-warning'
-                    >Fernando</span>
+                    >{authState?.username}</span>
 
                     <button
                         className='nav-item nav-link btn'
